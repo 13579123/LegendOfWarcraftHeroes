@@ -1,0 +1,27 @@
+
+uieffect_7.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/uieffect_7 (1)
+  rotate: false
+  xy: 243, 198
+  size: 221, 145
+  orig: 221, 145
+  offset: 0, 0
+  index: -1
+images/uieffect_7 (3)
+  rotate: false
+  xy: 243, 345
+  size: 248, 146
+  orig: 248, 146
+  offset: 0, 0
+  index: -1
+images/uieffect_7 (4)
+  rotate: false
+  xy: 2, 328
+  size: 239, 163
+  orig: 271, 195
+  offset: 16, 16
+  index: -1

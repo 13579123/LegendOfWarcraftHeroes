@@ -1,0 +1,47 @@
+{
+"skeleton": {
+	"hash": "6ljB2kj8HSevY635hE/KBqh9q0Y",
+	"spine": "3.8.75",
+	"x": -150.21,
+	"y": -91.17,
+	"width": 298,
+	"height": 231.65,
+	"images": "",
+	"audio": ""
+},
+"bones": [
+	{ "name": "root" },
+	{ "name": "bone", "parent": "root", "length": 123.6, "rotation": -1.25, "x": -55.59, "y": -26.1 },
+	{ "name": "bone2", "parent": "root", "length": 98.38, "rotation": 87.9, "x": -4.17, "y": 18.1 }
+],
+"slots": [
+	{ "name": "bottom-courage", "bone": "bone", "attachment": "bottom-courage" },
+	{ "name": "top_courage", "bone": "bone2", "attachment": "top_courage" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"top_courage": {
+				"top_courage": { "x": 67.68, "y": 6.57, "rotation": -87.9, "width": 103, "height": 109 }
+			},
+			"bottom-courage": {
+				"bottom-courage": { "x": 54.01, "y": 17.11, "rotation": 1.25, "width": 298, "height": 162 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {
+		"bones": {
+			"bone2": {
+				"translate": [
+					{ "x": 4.17, "y": -18.1 },
+					{ "time": 0.6667, "x": 4.17, "y": 6.9 },
+					{ "time": 1.3333, "x": 4.17, "y": -18.1 }
+				]
+			}
+		}
+	}
+}
+}

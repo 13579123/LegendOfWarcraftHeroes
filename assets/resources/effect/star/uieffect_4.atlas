@@ -1,0 +1,27 @@
+
+uieffect_4.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/470843fa73_rec
+  rotate: false
+  xy: 0, 0
+  size: 214, 214
+  orig: 256, 256
+  offset: 21, 21
+  index: -1
+images/star_1_b
+  rotate: false
+  xy: 216, 112
+  size: 112, 102
+  orig: 120, 120
+  offset: 4, 9
+  index: -1
+images/uieffect_1158
+  rotate: false
+  xy: 216, 63
+  size: 48, 47
+  orig: 50, 50
+  offset: 1, 2
+  index: -1
