@@ -1,0 +1,41 @@
+{
+"skeleton": {
+	"hash": "yfIGMwwY96S4gBZdM0ndVmt/S7c",
+	"spine": "3.8.75",
+	"x": -120,
+	"y": -120,
+	"width": 240,
+	"height": 240,
+	"images": "C:/Users/jiangjiasheng/Desktop/新建文件夹",
+	"audio": ""
+},
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "load magic", "bone": "root", "attachment": "load magic" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"load magic": {
+				"load magic": { "width": 240, "height": 240 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {
+		"bones": {
+			"root": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": -90 },
+					{ "time": 1, "angle": -180 }
+				]
+			}
+		}
+	}
+}
+}

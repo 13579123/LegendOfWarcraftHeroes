@@ -1,4 +1,4 @@
-import { _decorator, Component, director, Node } from 'cc';
+import { _decorator, Component, director, Node, SpriteFrame } from 'cc';
 import { HolPreLoad } from '../../prefab/HolPreLoad';
 import { util } from '../../util/util';
 const { ccclass, property } = _decorator;
@@ -10,12 +10,17 @@ export class PreloadCanvas extends Component {
         director.preloadScene("Home")
         // HolPreLoad
         const holPreLoad = this.node.getChildByName("HolPreLoad").getComponent(HolPreLoad)
+        director.preloadScene("Home")
         holPreLoad.setProcess(20)
 
         await util.message.preloadConfirm()
         holPreLoad.setProcess(30)
         await util.message.preloadPrompt()
         holPreLoad.setProcess(40)
+        await util.message.preloadLoad()
+        holPreLoad.setProcess(60)
+        await util.bundle.loadDir("image/number" , SpriteFrame)
+        holPreLoad.setProcess(60)
 
         holPreLoad.setProcess(100)
 

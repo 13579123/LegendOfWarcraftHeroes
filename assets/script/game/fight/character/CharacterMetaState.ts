@@ -1,6 +1,11 @@
 import { Asset, AssetManager, resources } from "cc";
 import { BasicMetaState } from "../BasicMetaState";
 import { CharacterState } from "./CharacterState";
+import { GetCharacterCoordinatePosition } from "../../../prefab/HolCharacter";
+import { util } from "../../../util/util";
+import { ActionState } from "../ActionState";
+import { FightMap } from "../../../scenes/Fight/Canvas/FightMap";
+import { BasicState } from "../BasicState";
 
 export class CharacterMetaState extends BasicMetaState {
 
@@ -10,6 +15,9 @@ export class CharacterMetaState extends BasicMetaState {
     // 动画缩放
     AnimationScale: number = 1.0
 
+    // 动画位置
+    AnimationPosition: {x: number , y: number} = {x: 0 , y: 0}
+
     // 动画方向 1 为右边 -1为左边
     AnimationForward: number = 1
 
@@ -18,6 +26,12 @@ export class CharacterMetaState extends BasicMetaState {
 
     // 动画bundle
     AnimationBundle: AssetManager.Bundle = resources
+
+    // 头像路径
+    AvatarPath: string
+
+    // 角色阵营 普通 自然 深渊
+    CharacterCamp: "ordinary"|"nature"|"abyss"|"dark"|"machine"|"sacred" = "ordinary"
 
     // 角色品质 1 普通 2 优秀 3 精良 4 史诗 5 传说
     CharacterQuality: number = 1
@@ -52,9 +66,6 @@ export class CharacterMetaState extends BasicMetaState {
     // 暴击原型 1 ~ 100
     Critical: number = 5
 
-    // 闪避原型 1 ~ 100
-    Miss: number = 5
-
     // 攻击描述
     AttackIntroduce: string = `普通攻击
 
@@ -78,4 +89,51 @@ export class CharacterMetaState extends BasicMetaState {
     
     对一个敌人造成攻击力 130% 的伤害
     `
+
+    // 默认普通攻击
+    GetOnAttack(): (self: CharacterState, actionState: ActionState, fightMap: FightMap) => Promise<any> {
+        return async (self: CharacterState, actionState: ActionState, fightMap: FightMap) => {
+            let enemies = self.component.getEnimies(fightMap.allLiveCharacter)
+            if (enemies.length <= 0) return
+            enemies = enemies.sort((a , b) => a.coordinate.col - b.coordinate.col)
+            actionState.targets.push(enemies[0].state)
+            // 播放动画
+            if (fightMap.isPlayAnimation) {
+                await util.sundry.moveNodeToPosition(
+                    self.component.node ,
+                    {
+                        targetPosition: GetCharacterCoordinatePosition(
+                            actionState.targets[0].component.direction ,
+                            actionState.targets[0].component.coordinate.row , 
+                            actionState.targets[0].component.coordinate.col ,
+                            "attack"
+                        ) ,
+                        moveCurve: true ,
+                        moveTimeScale: actionState.targets[0].component.holAnimation.timeScale
+                    }
+                )
+                await self.component.holAnimation.playAnimation("attack" , 1 , self.component.defaultState)
+            }
+            // 结算
+            for (const state of actionState.targets) 
+                await self.component.attack(self.attack * 1.0 , state.component)
+            // 播放动画
+            if (fightMap.isPlayAnimation) {
+                await util.sundry.moveNodeToPosition(
+                    self.component.node ,
+                    {
+                        targetPosition: GetCharacterCoordinatePosition(
+                            self.component.direction ,
+                            self.component.coordinate.row , 
+                            self.component.coordinate.col ,
+                            "ordinary"
+                        ) ,
+                        moveCurve: true ,
+                        moveTimeScale: self.component.holAnimation.timeScale
+                    }
+                )
+            }
+            return
+        }
+    }
 }

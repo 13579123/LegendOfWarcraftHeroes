@@ -38,13 +38,30 @@ class UserData extends Resource{
 
     public characters: CharacterStateCreate[] = []
 
-    public characterQueue: CharacterStateCreate[] = []
+    public characterQueue: CharacterStateCreate[][] = [
+        [null , null , null] ,
+        [null , null , null] ,
+        [null , null , null]
+    ]
 
     // 已经收集到的英雄
     public hasCollectCharacterId: string[] = []
 
     constructor(or?: Partial<UserData>) {
         super()
+        // 测试角色
+        this.addNewCharacter({
+            id: "sunwukong" ,
+            lv: 100 ,
+            star: 5 ,
+            equipment: []
+        })
+        this.addNewCharacter({
+            id: "fearOfDemons" ,
+            lv: 100 ,
+            star: 5 ,
+            equipment: []
+        })
         if (!or) { return }
         this.lv = or.lv || 1
         this.exp = or.exp || 1
@@ -59,7 +76,7 @@ class UserData extends Resource{
         // 原有装备
         ;(or.equipments || []).forEach(e => { this.addNewEquipment(e.id , e.lv) })
         // 原有出战角色
-        ;(or.characterQueue || []).forEach(c => this.characterQueue.push({...c , uuid: ++globalId}))
+        ;or.characterQueue.forEach((cq , i) => cq.forEach((c , j) => this.characterQueue[i][j] = {...c , uuid: ++globalId}))
     }
 
     // 添加新装备
@@ -101,17 +118,21 @@ class UserData extends Resource{
 
 class Config {
 
-    // 用户数据
-    public userData: UserData = new UserData()
+    // 版本
+    public version: string = "0.0.1"
 
     // 总音量
     public volume: number = 0.1
 
+    // 用户数据
+    public userData: UserData = new UserData()
+
     // 详细音量
-    public volumeDetail: VolumeDetail = new VolumeDetail
+    public volumeDetail: VolumeDetail = new VolumeDetail()
 
     constructor(con?: Partial<Config>) {
         if (!con) return
+        if (con.version !== this.version) return
         Object.keys(con).forEach(k => this[k] = con[k])
         this.userData = new UserData(con.userData)
         this.volumeDetail = new VolumeDetail(con.volumeDetail)

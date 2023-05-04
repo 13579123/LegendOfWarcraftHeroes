@@ -58,9 +58,7 @@ export class CharacterState extends BasicState<CharacterMetaState> {
     // 暴击
     critical: number
     // 格挡
-    block: number
-    // 闪避
-    miss: number
+    block: number = 5
 
     // 所有buff
     buff: BuffState[] = []
@@ -89,7 +87,6 @@ export class CharacterState extends BasicState<CharacterMetaState> {
         this.hurtPercent = meta.HurtPercent
         this.critical = meta.Critical
         this.block = meta.Block
-        this.miss = meta.Miss
 
         create.equipment.forEach(ec => this.addEquipment(ec))
         meta.OnCreateState(this)

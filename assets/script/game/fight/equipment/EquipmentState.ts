@@ -36,8 +36,6 @@ export class EquipmentState extends BasicState<EquipmentMetaState> {
     critical: number
     // 格挡
     block: number
-    // 闪避
-    miss: number
 
     // 构造器
     constructor(create: EquipmentStateCreate , character: CharacterState) {
@@ -53,7 +51,6 @@ export class EquipmentState extends BasicState<EquipmentMetaState> {
         this.hurtPercent = meta.HurtPercent
         this.critical = meta.Critical
         this.block = meta.Block
-        this.miss = meta.Miss
     }
     
     // 添加属性到角色

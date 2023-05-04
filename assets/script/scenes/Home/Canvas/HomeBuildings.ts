@@ -12,8 +12,6 @@ export class HomeBuildings extends Component {
         this.node.on(Node.EventType.TOUCH_END , this.onNodeTouchEnd , this)
         // 初始化宽度
         this.$FrameSize = screen.windowSize
-
-        util.message.prompt({message: screen.windowSize + '' , continueTime: 3})
     }
 
     protected onDestroy(): void {

@@ -2,6 +2,7 @@ import { load } from "./bundle/load";
 import { loadDir } from "./bundle/loadDir";
 import { error } from "./out/error";
 import { log } from "./out/log";
+import { load as loadMessage, preloadLoad } from "./message/load";
 import { confirm, preloadConfirm } from "./message/confirm"
 import { preloadPrompt, prompt } from "./message/prompt"
 import { getNodePool } from "./resource/getNodePool";
@@ -29,6 +30,8 @@ export const util = {
         preloadPrompt ,
         confirm , // 确认框
         preloadConfirm ,
+        load: loadMessage , // 加载框
+        preloadLoad
     } ,
     // 杂项功能
     sundry: {

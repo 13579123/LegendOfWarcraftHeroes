@@ -27,9 +27,6 @@ export class EquipmentMetaState extends BasicMetaState{
     // 暴击原型 1 ~ 100
     Critical: number = 5
 
-    // 闪避原型 1 ~ 100
-    Miss: number = 5
-
     /** 
      * 获取添加属性到角色的函数
      * 所有属性的增加的操作在这里进行
@@ -44,7 +41,6 @@ export class EquipmentMetaState extends BasicMetaState{
             self.character.hurtPercent += self.hurtPercent
             self.character.critical += self.critical
             self.character.block += self.block
-            self.character.miss += self.miss
         }
     }
 

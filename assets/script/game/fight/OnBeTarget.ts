@@ -10,6 +10,8 @@ export class OnBeTarget {
     hurt: number = 0
     // 被造成的回复
     cure: number = 0
+    // 是否格挡
+    block: boolean = false
     // 是否暴击
     critical: boolean = false
     // 添加的buff

@@ -6,9 +6,14 @@ const { ccclass, property } = _decorator;
 @ccclass('HomeCanvas')
 export class HomeCanvas extends Component {
 
-    protected start(): void {
+    protected async start() {
+
+        const close = await util.message.load({})
+
         // 初始化音乐
-        this.initMusic().then()
+        await this.initMusic()
+
+        close()
     }
 
     // 初始化播放音乐

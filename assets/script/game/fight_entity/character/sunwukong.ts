@@ -18,7 +18,23 @@ class Character extends CharacterMetaState {
 
     AnimationType: "DrangonBones" | "Spine" = "Spine"
 
+    AvatarPath: string = "game/fight_entity/character/sunwukong/avatar/spriteFrame"
+
+    CharacterCamp: "ordinary" | "nature" | "abyss" | "dark" | "machine"|"sacred" = "sacred"
+
+    CharacterQuality: number = 5
+
     AnimationScale: number = 0.7
+
+    HpGrowth: number = 70
+
+    AttackGrowth: number = 25
+
+    DefenceGrowth: number = 20
+
+    PierceGrowth: number = 10
+
+    SpeedGrowth: number = 15
 
     Energy: number = 100
 
@@ -27,7 +43,6 @@ class Character extends CharacterMetaState {
     额外获得 20% 速度
     额外获得 20% 攻击力
     额外获得 20% 护甲穿透
-    普通攻击会额外造成20%的伤害
     `.replace(/ /ig , "")
 
     PassiveIntroduceTwo: string = `
@@ -81,7 +96,7 @@ class Character extends CharacterMetaState {
             }
             // 造成伤害
             for (const target of actionState.targets)
-                await selfComponent.attack(self.attack * (self.star >= 2 ? 1.2 : 1.0) , target.component)
+                await selfComponent.attack(self.attack * 1.0 , target.component)
             // 回到原位
             if (fightMap.isPlayAnimation) {
                 await util.sundry.moveNodeToPosition(selfComponent.node , {
@@ -94,7 +109,7 @@ class Character extends CharacterMetaState {
                     moveTimeScale: self.component.holAnimation.timeScale
                 })
             }
-            // 再次出手
+            // 再次出手 20% 概率
             if ( self.star >= 4 && Math.random() < 0.2 ) {
                 if (fightMap.isPlayAnimation) await self.component.showString("再次出手")
                 await self.component.action()
@@ -138,11 +153,12 @@ class Character extends CharacterMetaState {
                 // 添加眩晕状态
                 const vertigo = new BuffState({id: "vertigo"})
                 target.component.addBuff(selfComponent , vertigo)
+                // 两回合后去掉
+                fightMap.listenRoundEvent(2 , () => target.component.deleteBuff(vertigo) )
+                // 攻击
                 fightMap.actionAwaitQueue.push(
                     selfComponent.attack(self.attack * 1.5 , target.component)
                 )
-                // 两回合后去掉
-                fightMap.listenRoundEvent(2 , () => target.component.deleteBuff(vertigo) )
             }
             // 回到原位
             if (fightMap.isPlayAnimation) 

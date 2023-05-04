@@ -1,0 +1,54 @@
+{
+"skeleton": {
+	"hash": "paI5q5L9386sv2Y61WJ0gIRSLyU",
+	"spine": "3.8.75",
+	"x": -58,
+	"y": -58,
+	"width": 116,
+	"height": 116,
+	"images": "C:/Users/jiangjiasheng/Desktop/二次元整套UI/特效/UI特效SPINE/uieffect_26/images",
+	"audio": ""
+},
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "lightSweep", "bone": "root", "attachment": "light_sweep_0000" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"lightSweep": {
+				"light_sweep_0000": { "width": 116, "height": 116 },
+				"light_sweep_0002": { "width": 116, "height": 116 },
+				"light_sweep_0004": { "width": 116, "height": 116 },
+				"light_sweep_0006": { "width": 116, "height": 116 },
+				"light_sweep_0008": { "width": 116, "height": 116 },
+				"light_sweep_0009": { "width": 116, "height": 116 },
+				"light_sweep_0010": { "width": 116, "height": 116 },
+				"light_sweep_0011": { "width": 116, "height": 116 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {
+		"slots": {
+			"lightSweep": {
+				"attachment": [
+					{ "time": 0.1333, "name": "light_sweep_0002" },
+					{ "time": 0.2667, "name": "light_sweep_0004" },
+					{ "time": 0.4, "name": "light_sweep_0006" },
+					{ "time": 0.5333, "name": "light_sweep_0008" },
+					{ "time": 0.6667, "name": "light_sweep_0009" },
+					{ "time": 0.8, "name": "light_sweep_0010" },
+					{ "time": 0.9333, "name": "light_sweep_0011" },
+					{ "time": 1, "name": null },
+					{ "time": 1.7333, "name": "light_sweep_0000" }
+				]
+			}
+		}
+	}
+}
+}

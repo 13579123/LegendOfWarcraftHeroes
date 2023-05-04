@@ -11,7 +11,9 @@ export type HolAnimationOption = {
     // 缩放值
     animationScale?: number
     // 动画类型
-    animationType: "DrangonBones" | "Spine"
+    animationType: "DrangonBones" | "Spine" 
+    // 动画位置
+    animationPosition: {x: number , y: number}
 }
 
 @ccclass('HolAnimation')
@@ -41,6 +43,12 @@ export class HolAnimation extends Component {
         this.node.setScale(
             animationOption.animationScale || 1 , 
             animationOption.animationScale || 1 ,
+            this.node.position.z
+        )
+        // 设置位置
+        this.node.setPosition(
+            this.node.position.x + animationOption.animationPosition.x ,
+            this.node.position.y + animationOption.animationPosition.y ,
             this.node.position.z
         )
         // 动画分类

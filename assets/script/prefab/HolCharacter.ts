@@ -66,6 +66,7 @@ export class HolCharacter extends Component {
             animationScale: this.state.meta.AnimationScale ,
             animationDir: this.state.meta.AnimationDir ,
             animationType: this.state.meta.AnimationType ,
+            animationPosition: this.state.meta.AnimationPosition
         })
         this.node.addChild(animationNode)
         this.$holAnimation.playAnimation("rest")
@@ -194,9 +195,14 @@ export class HolCharacter extends Component {
         targetState.hurt -= targetState.hurt * reduceInjury
         targetState.hurt = Math.max(targetState.hurt - targte.state.defence * 0.1 , 1)
         // 暴击概率
-        if(this.state.critical > math.randomRange(0 , 100)) {
+        if (this.state.critical > math.randomRange(0 , 100)) {
             targetState.critical = true
             targetState.hurt *= 1.8
+        }
+        // 概率格挡
+        if (targte.state.block > Math.random() * 100) {
+            targetState.block = true
+            targetState.hurt *= 0.5
         }
         // 对方所有被伤害回调
         for (const equipment of targte.state.equipment) 
@@ -205,12 +211,12 @@ export class HolCharacter extends Component {
             await buff.OnBeHurt(buff , targetState , this.$fightMap)
         await targte.state.OnBeHurt(targte.state , targetState , this.$fightMap)
         // 播放对方受到攻击动画
-        if (this.$fightMap.isPlayAnimation) {
+        if (this.$fightMap.isPlayAnimation && !targetState.block) {
             const hurtPromise = targte.$holAnimation.playAnimation("hurt" , 1 , targte.defaultState)
             this.$fightMap.actionAwaitQueue.push(hurtPromise)
         }
         targte.state.energy += 10
-        // 结束
+        // 结算
         await targte.executeTargetState(targetState)
         // 更新ui
         await this.updateUi()
@@ -327,8 +333,13 @@ export class HolCharacter extends Component {
      * @param targetState 结算对象
      */
     private async executeTargetState(targetState: OnBeTarget) {
+        // 显示格挡
+        if (targetState.block && this.$fightMap.isPlayAnimation) {
+            await this.showString("格挡")
+            await this.showString("-" + Math.ceil(targetState.hurt))
+        }
         // 显示数值
-        if (this.$fightMap.isPlayAnimation && targetState.hurt) {
+        else if (this.$fightMap.isPlayAnimation && targetState.hurt) {
             if (targetState.critical) this.showNumber(-targetState.hurt , new math.Color(220 , 70 , 70 , 255) , 40)
             else this.showNumber(-targetState.hurt , new math.Color(200 , 200 , 200 , 255) , 25)
         }
@@ -396,13 +407,13 @@ export class HolCharacter extends Component {
         this.node.addChild(node)
         let index = 0
         const inter = setInterval(() => {
-            if (index++ > 30) {
+            if (index++ > 45) {
                 clearInterval(inter)
                 this.node.removeChild(node)
                 return
             }
             node.setPosition( node.position.x , node.position.y + 2 , node.position.z )
-        } , 15)
+        } , 20 / this.$holAnimation.timeScale)
         return new Promise(res => setTimeout(res, 100))
     }
 
