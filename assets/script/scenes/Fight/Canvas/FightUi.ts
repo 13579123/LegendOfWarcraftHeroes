@@ -1,5 +1,7 @@
 import { _decorator, Component, Event, Label, Node } from 'cc';
 import { HolCharacter } from '../../../prefab/HolCharacter';
+import { util } from '../../../util/util';
+import { FightMap } from './FightMap';
 const { ccclass, property } = _decorator;
 
 @ccclass('FightUi')
@@ -21,5 +23,15 @@ export class FightUi extends Component {
         return
     }
 
+    // 跳过战斗
+    async skipFight() {
+
+        const result = await util.message.confirm({message: "确定要跳过战斗吗?"})
+
+        if (result) {
+            this.FightMapNode.getComponent(FightMap).isPlayAnimation = false
+        }
+
+    }
 }
 
