@@ -7,6 +7,8 @@ import { HolAnimation } from './HolAnimation';
 import { ActionState } from '../game/fight/ActionState';
 import { FightMap } from '../scenes/Fight/Canvas/FightMap';
 import { HolNumber } from './HolNumber';
+import { CharacterEnum } from '../game/fight/character/CharacterEnum';
+import { getCampHurtPercent } from '../game/fight/character/CharacterMetaState';
 const { ccclass, property } = _decorator;
 
 // 获取角色坐标
@@ -56,9 +58,7 @@ export class HolCharacter extends Component {
         this.direction = direction
         this.coordinate = coordinate
         this.$fightMap = fightMap
-        // 角色位置
-        const position = GetCharacterCoordinatePosition(direction , coordinate.row , coordinate.col)
-        this.node.setPosition( position.x , position.y , this.node.position.z )
+        const meta = CharacterEnum[create.id]
         // 动画设置
         const animationNode = this.node.getChildByName("HolAnimation")
         this.$holAnimation = animationNode.getComponent(HolAnimation)
@@ -70,18 +70,28 @@ export class HolCharacter extends Component {
         })
         this.node.addChild(animationNode)
         this.$holAnimation.playAnimation("rest")
+        // 阵营渲染
+        this.node.getChildByName("Camp").getComponent(Sprite).spriteFrame = 
+            await util.bundle.load(`image/camp_icon/${meta.CharacterCamp}/spriteFrame` , SpriteFrame)
+        // 角色位置
+        const position = GetCharacterCoordinatePosition(
+            this.direction , 
+            this.coordinate.row , 
+            this.coordinate.col
+        )
+        this.node.setPosition( position.x , position.y , this.node.position.z )
         // 角色面朝方向
-        if (direction === "left") 
-            animationNode.setScale(
-                animationNode.scale.x * this.state.meta.AnimationForward ,
-                animationNode.scale.y ,
-                animationNode.scale.z ,
+        if (this.direction === "left") 
+            this.$holAnimation.node.setScale(
+                Math.abs(this.$holAnimation.node.scale.x) * this.state.meta.AnimationForward ,
+                this.$holAnimation.node.scale.y ,
+                this.$holAnimation.node.scale.z ,
             )
         else 
-            animationNode.setScale(
-                animationNode.scale.x * -this.state.meta.AnimationForward ,
-                animationNode.scale.y ,
-                animationNode.scale.z ,
+            this.$holAnimation.node.setScale(
+                Math.abs(this.$holAnimation.node.scale.x) * -this.state.meta.AnimationForward ,
+                this.$holAnimation.node.scale.y ,
+                this.$holAnimation.node.scale.z ,
             )
         // 等级渲染
         this.node
@@ -184,7 +194,10 @@ export class HolCharacter extends Component {
         const targetState = new OnBeTarget()
         targetState.origin = this.state
         targetState.cure =    0 * this.state.curePercent
-        targetState.hurt = hurt * this.state.hurtPercent
+        targetState.hurt = hurt * this.state.hurtPercent * getCampHurtPercent(
+            this.state.meta.CharacterCamp , 
+            targte.state.meta.CharacterCamp
+        )
         targetState.buff = []
         // 10%数据波动
         targetState.cure += math.randomRange(-0.1 , 0.1) * targetState.cure
@@ -194,6 +207,8 @@ export class HolCharacter extends Component {
         const reduceInjury = (targte.state.defence * pierceRate) / (targte.state.defence * pierceRate + 700)
         targetState.hurt -= targetState.hurt * reduceInjury
         targetState.hurt = Math.max(targetState.hurt - targte.state.defence * 0.1 , 1)
+        // 免伤
+        targetState.hurt *= 1 - targte.state.FreeInjuryPercent
         // 暴击概率
         if (this.state.critical > math.randomRange(0 , 100)) {
             targetState.critical = true
@@ -237,7 +252,7 @@ export class HolCharacter extends Component {
         // 10%数据波动
         targetState.cure += math.randomRange(-0.1 , 0.1) * targetState.cure
         targetState.hurt += math.randomRange(-0.1 , 0.1) * targetState.hurt
-        // 对方所有被伤害回调
+        // 对方所有被治疗回调
         for (const equipment of targte.state.equipment) 
             await equipment.OnBeCure(equipment , targetState , this.$fightMap)
         for (const buff of targte.state.buff)

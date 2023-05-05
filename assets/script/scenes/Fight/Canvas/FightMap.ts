@@ -30,7 +30,7 @@ export class FightMap extends Component {
     actionAwaitQueue: Promise<any>[] = []
 
     protected async start() {
-        // HolPreLoad
+        // HolPreLoad 预加载进度条
         const holPreLoad = this.node.parent.getChildByName("HolPreLoad").getComponent(HolPreLoad)
         holPreLoad.setTips([
             "提示\n不同阵营之间相互克制，巧用阵营可以出奇制胜" ,
@@ -51,7 +51,6 @@ export class FightMap extends Component {
             await this.setCharacter(character[1] , "right" , character[0])
             holPreLoad.setProcess(process = process + 20 / common.rightCharacter.size)
         }
-        holPreLoad.setProcess(100)
         // 监听进度条完成函数
         holPreLoad.listenComplete(async () => {
             await new Promise(res => setTimeout(res, 500))
@@ -62,6 +61,8 @@ export class FightMap extends Component {
             // 战斗失败结算
             else this.fightEnd()
         })
+        // 设置 100%
+        holPreLoad.setProcess(100)
     }
 
     // 监听回合函数

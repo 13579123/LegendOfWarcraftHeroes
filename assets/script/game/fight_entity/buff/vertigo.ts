@@ -13,6 +13,7 @@ export class VertigoBuff extends BuffMetaState {
     // 眩晕buff
     name: string = "眩晕"
 
+    // buff 类型
     isDeBuff: boolean = true
 
     introduce: string = "眩晕后无法行动"

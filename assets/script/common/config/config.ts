@@ -52,14 +52,14 @@ class UserData extends Resource{
         // 测试角色
         this.addNewCharacter({
             id: "sunwukong" ,
-            lv: 100 ,
-            star: 5 ,
+            lv: 1 ,
+            star: 4 ,
             equipment: []
         })
         this.addNewCharacter({
             id: "fearOfDemons" ,
-            lv: 100 ,
-            star: 5 ,
+            lv: 10 ,
+            star: 2 ,
             equipment: []
         })
         if (!or) { return }

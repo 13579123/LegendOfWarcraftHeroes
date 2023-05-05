@@ -46,7 +46,7 @@ export class Character extends CharacterMetaState {
     PassiveIntroduceTwo: string = `
     
     额外获得 15% 攻击力
-    普通攻击有20%的概率会恐惧敌人
+    普通攻击有20%的概率会恐惧敌人 持续两回合
     `.replace(/ /ig , "")
 
     SkillIntroduce: string = `
@@ -90,12 +90,11 @@ export class Character extends CharacterMetaState {
             }
             // 结算
             for (const target of actionState.targets) {
-                // 添加恐惧 TODO
-                if (self.star >= 4 && math.randomRange(1,100) < 20) {
+                // 添加恐惧
+                if (self.star >= 4 && Math.random() < 0.2) {
                     const fearBuff = new BuffState({id: "fear"})
                     target.component.addBuff(self.component , fearBuff)
-                    // 两回合后去掉
-                    fightMap.listenRoundEvent(2 , () => target.component.deleteBuff(fearBuff))
+                    fightMap.listenRoundEvent( 2 , () => target.component.deleteBuff(fearBuff))
                 }
                 // 攻击
                 fightMap.actionAwaitQueue.push(

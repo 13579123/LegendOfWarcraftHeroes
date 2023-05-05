@@ -5,7 +5,18 @@ import { GetCharacterCoordinatePosition } from "../../../prefab/HolCharacter";
 import { util } from "../../../util/util";
 import { ActionState } from "../ActionState";
 import { FightMap } from "../../../scenes/Fight/Canvas/FightMap";
-import { BasicState } from "../BasicState";
+
+export type CampType = "ordinary"|"nature"|"abyss"|"dark"|"machine"|"sacred"
+
+// 获取阵营伤害率
+export function getCampHurtPercent(self: CampType , targte: CampType): number {
+    if (self === "ordinary" || targte === "ordinary") return 1.0
+    
+    if (self === "machine" && targte === "nature") return 1.2
+    if (self === "nature" && targte === "machine") return 0.8
+
+    return 1.0
+}
 
 export class CharacterMetaState extends BasicMetaState {
 
@@ -31,7 +42,7 @@ export class CharacterMetaState extends BasicMetaState {
     AvatarPath: string
 
     // 角色阵营 普通 自然 深渊
-    CharacterCamp: "ordinary"|"nature"|"abyss"|"dark"|"machine"|"sacred" = "ordinary"
+    CharacterCamp: CampType = "ordinary"
 
     // 角色品质 1 普通 2 优秀 3 精良 4 史诗 5 传说
     CharacterQuality: number = 1
@@ -53,12 +64,6 @@ export class CharacterMetaState extends BasicMetaState {
 
     // 角色穿透 10 ~ 20
     PierceGrowth: number = 20
-
-    // 角色治疗率 
-    CurePercent: number = 1.0
-
-    // 角色伤害率
-    HurtPercent: number = 1.0
 
     // 格挡原型 1 ~ 100
     Block: number = 5

@@ -10,21 +10,15 @@ class Common {
 // 公共内存
 export const common = new Common
 
-// common.leftCharacter.set({row: 2 , col: 2} , {
-//     id: "sunwukong" ,
-//     lv: 100 ,
-//     star: 5 ,
-//     equipment: []
-// })
-// common.leftCharacter.set({row: 2 , col: 3} , {
-//     id: "fearOfDemons" ,
-//     lv: 100 ,
-//     star: 5 ,
-//     equipment: []
-// })
-// common.rightCharacter.set({row: 2 , col: 2} , {
-//     id: "sunwukong" ,
-//     lv: 100 ,
-//     star: 5 ,
-//     equipment: []
-// })
+common.leftCharacter.set({row: 2 , col: 3} , {
+    id: "fearOfDemons" ,
+    lv: 100 ,
+    star: 5 ,
+    equipment: []
+})
+common.rightCharacter.set({row: 2 , col: 2} , {
+    id: "sunwukong" ,
+    lv: 100 ,
+    star: 5 ,
+    equipment: []
+})

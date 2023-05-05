@@ -52,9 +52,11 @@ export class CharacterState extends BasicState<CharacterMetaState> {
     // 穿透
     pierce: number
     // 治疗效率
-    curePercent: number
+    curePercent: number = 1.0
     // 伤害率
-    hurtPercent: number
+    hurtPercent: number = 1.0
+    // 免伤率
+    FreeInjuryPercent: number = 0.0
     // 暴击
     critical: number
     // 格挡
@@ -83,8 +85,6 @@ export class CharacterState extends BasicState<CharacterMetaState> {
         this.defence = create.lv * meta.DefenceGrowth * ((create.star - 1) * 0.15 + 1) * (create.lv / 80 + 0.8)
         this.speed = create.lv * meta.SpeedGrowth * ((create.star - 1) * 0.15 + 1) * (create.lv / 80 + 0.8)
         this.pierce = create.lv * meta.PierceGrowth * ((create.star - 1) * 0.15 + 1) * (create.lv / 80 + 0.8)
-        this.curePercent = meta.CurePercent
-        this.hurtPercent = meta.HurtPercent
         this.critical = meta.Critical
         this.block = meta.Block
 
@@ -93,16 +93,6 @@ export class CharacterState extends BasicState<CharacterMetaState> {
 
         this.hp = this.maxHp
         this.energy = 20
-
-        // util.out.log(`
-        // 名称: ${meta.name}
-        // 等级: ${create.lv}
-        // 阶级: ${create.star}
-        // 生命值: ${this.maxHp}
-        // 攻击力: ${this.attack}
-        // 防御力: ${this.defence}
-        // 速度值: ${this.speed}
-        // `)
     }
 
     // 合理化数据
