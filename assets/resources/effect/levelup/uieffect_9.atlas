@@ -1,0 +1,90 @@
+
+uieffect_9.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/3
+  rotate: false
+  xy: 216, 646
+  size: 398, 135
+  orig: 398, 136
+  offset: 0, 1
+  index: -1
+images/glow_line
+  rotate: false
+  xy: 616, 646
+  size: 240, 135
+  orig: 240, 135
+  offset: 0, 0
+  index: -1
+images/parti_1
+  rotate: false
+  xy: 140, 792
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+images/parti_2
+  rotate: false
+  xy: 206, 792
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+images/parti_3
+  rotate: false
+  xy: 272, 792
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+images/saoling_03
+  rotate: false
+  xy: 2, 716
+  size: 212, 74
+  orig: 360, 640
+  offset: 71, 375
+  index: -1
+images/saoling_04
+  rotate: false
+  xy: 338, 783
+  size: 203, 73
+  orig: 360, 640
+  offset: 78, 375
+  index: -1
+images/saoling_05
+  rotate: false
+  xy: 543, 783
+  size: 176, 73
+  orig: 360, 640
+  offset: 104, 375
+  index: -1
+images/saoling_06
+  rotate: false
+  xy: 721, 783
+  size: 128, 73
+  orig: 360, 640
+  offset: 151, 375
+  index: -1
+images/saoling_07
+  rotate: false
+  xy: 64, 821
+  size: 74, 35
+  orig: 360, 640
+  offset: 205, 375
+  index: -1
+images/saoling_08
+  rotate: false
+  xy: 21, 823
+  size: 41, 33
+  orig: 360, 640
+  offset: 237, 375
+  index: -1
+images/saoling_09
+  rotate: false
+  xy: 2, 843
+  size: 17, 13
+  orig: 360, 640
+  offset: 260, 391
+  index: -1

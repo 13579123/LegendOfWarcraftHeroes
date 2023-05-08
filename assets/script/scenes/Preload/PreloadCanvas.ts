@@ -20,7 +20,9 @@ export class PreloadCanvas extends Component {
         await util.message.preloadLoad()
         holPreLoad.setProcess(60)
         await util.bundle.loadDir("image/number" , SpriteFrame)
-        holPreLoad.setProcess(60)
+        holPreLoad.setProcess(70)
+        util.message.preloadIntroduce()
+        holPreLoad.setProcess(80)
 
         holPreLoad.setProcess(100)
 

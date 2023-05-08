@@ -13,6 +13,8 @@ import { BuffState } from "../../fight/buff/BuffState";
 @RegisterCharacter({id: "fearOfDemons"})
 export class Character extends CharacterMetaState {
 
+    name: string = "恐魔"
+
     AnimationDir: string = "game/fight_entity/character/fearOfDemons"
 
     AvatarPath: string = "game/fight_entity/character/fearOfDemons/avatar/spriteFrame"

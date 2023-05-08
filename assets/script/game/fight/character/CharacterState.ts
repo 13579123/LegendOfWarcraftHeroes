@@ -34,6 +34,8 @@ export class CharacterState extends BasicState<CharacterMetaState> {
     lv: number
     // 角色星级
     star: number
+    // 所属create
+    create: CharacterStateCreate
 
     // 生命值
     hp: number
@@ -78,6 +80,7 @@ export class CharacterState extends BasicState<CharacterMetaState> {
         this.star = create.star
         this.name = meta.name
         this.component = component
+        this.create = create
 
         this.maxEnergy = meta.Energy
         this.maxHp = create.lv * meta.HpGrowth * ((create.star - 1) * 0.15 + 1) * (create.lv / 80 + 0.8)

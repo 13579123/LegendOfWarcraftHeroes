@@ -1,3 +1,6 @@
+import { BasicState } from "../BasicState"
+import { ItemMetaState } from "./ItemMetaState"
+
 export type ItemStateCreate = {
     // id
     id: string
@@ -5,3 +8,8 @@ export type ItemStateCreate = {
     number: number
 }
 
+export class ItemState extends BasicState<ItemMetaState> {
+
+    number: number = 0
+
+}

@@ -1,4 +1,4 @@
-import { _decorator, Component, math, Node, NodeEventType, Prefab, Sprite, SpriteFrame } from 'cc';
+import { _decorator, Component, instantiate, math, Node, NodeEventType, Prefab, Sprite, SpriteFrame } from 'cc';
 import { util } from '../../../util/util';
 import { HolCharacter } from '../../../prefab/HolCharacter';
 import { CharacterStateCreate } from '../../../game/fight/character/CharacterState';
@@ -132,15 +132,15 @@ export class FightMap extends Component {
 
     // 设置角色
     private async setCharacter(create: CharacterStateCreate , direct: "left"|"right" , coordinate: {row: number , col: number}) {
-        const nodePool = util.resource.getNodePool(await util.bundle.load("prefab/HolCharacter"))
-        const character = nodePool.get()
+        const holCharacterPrefab = await util.bundle.load("prefab/HolCharacter" , Prefab)
+        const character = instantiate(holCharacterPrefab)
         this.node.addChild(character)
         const holCharacter = character.getComponent(HolCharacter)
         await holCharacter.initCharacter(
             create , direct , coordinate , this
         )
         this.node.on(NodeEventType.NODE_DESTROYED , () => {
-            nodePool.put(character)
+            character.parent.removeChild(character)
         })
         this.allLiveCharacter.push(holCharacter)
     }

@@ -20,9 +20,11 @@ export function GetCharacterCoordinatePosition(
 
 ): {x: number , y: number} {
     const result = {x: 0 , y: 0}
-    result.x = (col - 1) * 195 + 170 - (type === "attack" ? 120 : 0)
-    result.y = (3 - row) * 160 - 230
-    if (direction === "left") result.x *= -1
+    if ((row >= 1 || row <= 3) && (col >= 1 || col <= 3)) {
+        result.x = (col - 1) * 195 + 170 - (type === "attack" ? 120 : 0)
+        result.y = (3 - row) * 160 - 230
+        if (direction === "left") result.x *= -1
+    }
     return result
 }
 
@@ -52,7 +54,7 @@ export class HolCharacter extends Component {
      * 初始化角色
      * create 是角色创建数据
      */
-    async initCharacter(create: CharacterStateCreate , direction: "left"|"right" , coordinate: {row: number , col: number} , fightMap: FightMap) {
+    async initCharacter(create: CharacterStateCreate , direction: "left"|"right" , coordinate: {row: number , col: number} = {row: 0 , col: 0}, fightMap: FightMap = null) {
         // 创建角色状态
         this.state = new CharacterState(create , this)
         this.direction = direction

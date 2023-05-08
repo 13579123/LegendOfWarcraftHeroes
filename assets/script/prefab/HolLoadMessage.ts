@@ -20,7 +20,8 @@ export class HolLoadMessage extends Component {
     }
 
     closeLoad() {
-        this.$event.get("close")?.forEach(c => c())
+        if (this.$event)
+            this.$event.get("close")?.forEach(c => c())
     }
 
 }

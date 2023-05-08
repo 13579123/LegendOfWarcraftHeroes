@@ -7,6 +7,7 @@ import { confirm, preloadConfirm } from "./message/confirm"
 import { preloadPrompt, prompt } from "./message/prompt"
 import { getNodePool } from "./resource/getNodePool";
 import { moveNodeToPosition } from "./sundry/moveNodeToPosition";
+import { introduce, preloadIntroduce } from "./message/introduce";
 
 // 根据对象
 export const util = {
@@ -31,7 +32,9 @@ export const util = {
         confirm , // 确认框
         preloadConfirm ,
         load: loadMessage , // 加载框
-        preloadLoad
+        preloadLoad ,
+        introduce ,
+        preloadIntroduce ,
     } ,
     // 杂项功能
     sundry: {
