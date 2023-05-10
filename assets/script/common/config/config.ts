@@ -3,9 +3,9 @@ import { EquipmentStateCreate } from "../../game/fight/equipment/EquipmentState"
 import { ItemStateCreate } from "../../game/fight/item/ItemState"
 
 export class Resource {
-    gold: number = 1000
-    diamond: number = 100
-    soul: number = 1000
+    gold: number = 100000000
+    diamond: number = 100000
+    soul: number = 100000000
 }
 
 class VolumeDetail {
@@ -52,14 +52,14 @@ class UserData extends Resource{
         // 测试角色
         this.addNewCharacter({
             id: "sunwukong" ,
-            lv: 1 ,
-            star: 4 ,
+            lv: 100 ,
+            star: 3 ,
             equipment: []
         })
         this.addNewCharacter({
             id: "fearOfDemons" ,
-            lv: 10 ,
-            star: 2 ,
+            lv: 90 ,
+            star: 1 ,
             equipment: []
         })
         if (!or) { return }
@@ -150,7 +150,7 @@ export function stockConfig() {
 }
 
 // 获取config
-export function getConfig() {
+export function getConfig(): Config {
     if (config) return config
     const configJSON = localStorage.getItem("UserConfigData")
     config = configJSON ? new Config(JSON.parse( configJSON )) : new Config

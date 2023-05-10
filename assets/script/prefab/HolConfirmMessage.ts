@@ -1,10 +1,12 @@
-import { _decorator, Component, Label, Node } from 'cc';
+import { _decorator, Component, EventHandheld, Label, Node, Toggle } from 'cc';
 const { ccclass, property } = _decorator;
 
 // 内容选项
 export type ContentOption = {
     title?: string // 标题
     message: string // 内容
+    selectBoxMessage?: string // 选择框内容
+    selectBoxCallback?: (t: boolean) => any // 选择框
     sureQueue? :(() => any)[] // 确定的回调
     cancelQueue? :(() => any)[] // 取消的回调
     closeQueue? :(() => any)[] // 关闭的回调
@@ -48,6 +50,14 @@ export class HolConfirmMessage extends Component {
         co.message = co.message.replace(/&nbsp;/ig , " ")
         // 内容
         this.ContentNode.getComponent(Label).string = co.message
+        // 选择框内容
+        if (co.selectBoxMessage) {
+            const radioNode = this.node.getChildByName("Radio")
+            radioNode.active = true
+            radioNode.getChildByName("RadioMessage").getComponent(Label).string = 
+                co.selectBoxMessage
+            radioNode.on("click" , () => { co.selectBoxCallback && co.selectBoxCallback(radioNode.getComponent(Toggle).isChecked) })
+        }
         // 事件
         this.$sureQueue.concat(Array.from(co.sureQueue || []))
         this.$cancelQueue.concat(Array.from(co.cancelQueue || []))

@@ -12,22 +12,23 @@ export class HeroAllHeros extends Component {
 
     // 开始
     protected async start() {
+        // 第一次渲染所有角色
         const config = getConfig()
         const close = await util.message.load()
         const cahracterQueue = []
         config.userData.characterQueue.forEach(cq => cq.forEach(c => { if(c) cahracterQueue.push(c) }))
-        await this.render([].concat(cahracterQueue , config.userData.characters) , async (c , n) => {
+        await this.render([].concat(cahracterQueue , config.userData.characters))
+        close()
+    }
+
+    async render(characterQueue: CharacterStateCreate[]) {
+        await this.node.getChildByName("HolCharactersQueue")
+        .getComponent(HolCharactersQueue)
+        .render(characterQueue , async (c , n) => {
             const characterDetail = this.node.parent.getChildByName("CharacterDetail")
             characterDetail.active = true
             await characterDetail.getComponent(HeroCharacterDetail).setCharacter(c)
         })
-        close()
-    }
-
-    async render(characterQueue: CharacterStateCreate[] , clickFun?: (characters: CharacterStateCreate , node: Node) => any) {
-        await this.node.getChildByName("HolCharactersQueue")
-        .getComponent(HolCharactersQueue)
-        .render(characterQueue , clickFun)
     }
 }
 
